@@ -33,6 +33,19 @@ export const Query = {
       }
 
   },
+  nameMascota : async (_:unknown, args:{name?: string}): Promise<Array<Pet>> => {
+    const {name} = args;
+    // Si no se especifica la raza, se devuelven todas las mascotas, y si se especifica, solo las de esa raza
+    const mascotas = await MascotaModel.find(name ? {name} : {});
+    return mascotas.map((mascota) => {
+      return {
+        id: mascota._id.toString(),
+        name: mascota.name,
+        breed: mascota.breed,
+  }
+}
+)
+  }
 
 
 
